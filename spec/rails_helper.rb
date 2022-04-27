@@ -1,4 +1,19 @@
 # This file is copied to spec/ when you run 'rails generate rspec:install'
+require 'simplecov'
+SimpleCov.start do
+  # ignore these directories
+  %w(spec db config).each do |ignored_directory|
+    add_filter "/#{ignored_directory}/"
+  end
+
+  # app folder grouping
+  %w(admin controllers helpers mailers mixins models policies queries serializers services workers).each do |directory|
+    add_group directory.capitalize, "app/#{directory}"
+  end
+
+  add_group "lib", "lib"
+end
+
 require 'spec_helper'
 ENV['RAILS_ENV'] ||= 'test'
 require_relative '../config/environment'
