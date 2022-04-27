@@ -9,6 +9,7 @@ services:
       - db_data:/var/lib/postgresql/data
   web:
     build: .
+    image: book-turbine/web
     ports:
       - "3000:3000"
     env_file: .env

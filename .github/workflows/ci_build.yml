@@ -1,0 +1,17 @@
+name: CI/docker/rspec
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Build the Docker image
+      run: docker compose build --progress=plain
+    - name: Build the Docker container
+      run: docker run -it docker.io/book-turbine/web bash -c "bundle exec rspec ./spec"

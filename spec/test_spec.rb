@@ -1,7 +1,7 @@
 require 'rails_helper'
 
-describe do 
-  it '' do 
+describe 'test' do
+  it 'testing' do
     pending
   end
 end
