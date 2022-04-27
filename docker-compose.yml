@@ -20,7 +20,7 @@ services:
       - node_modules:/usr/src/app/node_modules
     depends_on:
       - db
-    stdin_open: true # docker run -i
+#    stdin_open: true # docker run -i
 #    tty: true # docker run -t
 volumes:
   db_data:

@@ -38,7 +38,9 @@ jobs:
         # Ignore the failure of a step and avoid terminating the job.
         continue-on-error: true
 
-      - run: docker-compose up --build -d && docker exec book-turbine_web_1 bundle exec rspec spec
+      - run: docker-compose up --build -d
+
+      - run: docker exec book-turbine_web_1 bundle exec rspec spec
 
     # Finally, "Post Run satackey/action-docker-layer-caching@v0.0.11",
     # which is the process of saving the cache, will be executed.
