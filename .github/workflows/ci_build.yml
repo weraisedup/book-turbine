@@ -1,4 +1,21 @@
-name: CI/docker/rspec
+#name: CI/docker/rspec
+#
+#on:
+#  push:
+#    branches: [ main ]
+#  pull_request:
+#    branches: [ main ]
+#
+#jobs:
+#  build:
+#    runs-on: ubuntu-latest
+#    steps:
+#    - uses: actions/checkout@v3
+#    - name: Build the Docker image
+#      run: docker compose build --progress=plain
+#    - name: Build the Docker container
+#      run: docker run -it docker.io/book-turbine/web bash -c "bundle exec rspec ./spec"
+name: CI
 
 on:
   push:
@@ -10,8 +27,21 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
-    - name: Build the Docker image
-      run: docker compose build --progress=plain
-    - name: Build the Docker container
-      run: docker run -it docker.io/book-turbine/web bash -c "bundle exec rspec ./spec"
+      - uses: actions/checkout@v3
+      # Pull the latest image to build, and avoid caching pull-only images.
+      # (docker pull is faster than caching in most cases.)
+      - run: docker compose pull
+      # In this step, this action saves a list of existing images,
+      # the cache is created without them in the post run.
+      # It also restores the cache if it exists.
+      - uses: satackey/action-docker-layer-caching@v0.0.11
+        # Ignore the failure of a step and avoid terminating the job.
+        continue-on-error: true
+
+      - name: Build the docker image
+      - run: docker-compose up --build -d
+      - name: Run rspec tests
+      - run: docker exec -it book-turbine-web-1 bundle exec rspec spec
+
+    # Finally, "Post Run satackey/action-docker-layer-caching@v0.0.11",
+    # which is the process of saving the cache, will be executed.

@@ -9,7 +9,7 @@ services:
       - db_data:/var/lib/postgresql/data
   web:
     build: .
-    image: book-turbine/web
+    image: emmajhyde/book-turbine:latest
     ports:
       - "3000:3000"
     env_file: .env
@@ -20,7 +20,7 @@ services:
       - node_modules:/usr/src/app/node_modules
     depends_on:
       - db
-#    stdin_open: true # docker run -i
+    stdin_open: true # docker run -i
 #    tty: true # docker run -t
 volumes:
   db_data:

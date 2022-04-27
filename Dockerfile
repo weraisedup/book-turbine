@@ -47,6 +47,7 @@ COPY yarn.lock    $APP_HOME/yarn.lock
 RUN yarn install --check-files
 RUN gem install foreman pg
 RUN bundle install --jobs 20 --retry 5
+
 EXPOSE 3000
 
 CMD ["./bin/dev"]
