@@ -5,25 +5,11 @@ Generates book recommendations.
 =======
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
-
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+- Install docker your favorite way.
+- `cd` into the book-turbine directory.
+- perform `docker compose build`.
+- perform `docker compose up`.
+- The application should launch, which includes doing any necessary database 
+  preparation & seeding and then running the backend + frontend in foreman.
+- run `docker exec -it book-turbine-web-1 bundle exec rspec spec` in another 
+  terminal tab to run the tests. This requires that `docker compose up` is running.
