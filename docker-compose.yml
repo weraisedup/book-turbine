@@ -1,0 +1,28 @@
+version: "3.8"
+services:
+  db:
+    image: postgres
+    ports:
+      - "5432:5432"
+    env_file: .env
+    volumes:
+      - db_data:/var/lib/postgresql/data
+  web:
+    build: .
+    ports:
+      - "3000:3000"
+    env_file: .env
+    volumes:
+      - ./:/usr/src/app
+      - bundle:/usr/local/bundle
+      - rails_cache:/usr/src/app/tmp/cache
+      - node_modules:/usr/src/app/node_modules
+    depends_on:
+      - db
+    stdin_open: true # docker run -i
+    tty: true # docker run -t
+volumes:
+  db_data:
+  bundle:
+  rails_cache:
+  node_modules:

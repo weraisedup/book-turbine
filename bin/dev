@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+rm /usr/src/app/tmp/pids/server.pid
+
+bundle install
+yarn install --check-files
+
+if ! command -v foreman &> /dev/null
+then
+  echo "Installing foreman..."
+  gem install foreman
+fi
+
+bin/rails db:prepare
+foreman start -f Procfile.dev "$@"
