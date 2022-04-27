@@ -74,4 +74,5 @@ group :test do
   gem "webdrivers"
   gem 'rspec'
   gem 'rspec-rails'
+  gem 'simplecov', require: false
 end
