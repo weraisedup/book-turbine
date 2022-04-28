@@ -7,7 +7,13 @@ Generates book recommendations.
 =======
 # README
 
-- Install docker your favorite way.
+### OSX 
+```bash
+brew cask install docker
+```
+### OR?
+Your favorite myriad other ways.
+**Then:**
 - `cd` into the book-turbine directory.
 - perform `docker compose build`.
 - perform `docker compose up`.
