@@ -24,13 +24,13 @@ jobs:
       - name: Tag and Push to docker.pkg.github.com
         run: docker tag emmajhyde/book-turbine:latest docker.pkg.github.com/$GITHUB_REPOSITORY/build-cache-no-buildkit && \
              docker push docker.pkg.github.com/$GITHUB_REPOSITORY/build-cache-no-buildkit || true
+
       - name: Run RSpec Tests
         run: echo "COMMENT=$(docker compose run web bundle exec rspec spec --format=json)" >> $GITHUB_ENV
 
       - name: Make RSpec Feedback Legible
         uses: actions/github-script@v6
         id: rspec
-        if: ${{ github.event_name == 'pull_request' }}
         env:
           SHA: ${{ github.event.pull_request.head.sha }}
         with:
