@@ -5,7 +5,7 @@
       t.string :author, null: false
       t.date :release_date
       t.bigint :isbn
-      t.jsonb :subjects
+      t.string :subjects, array: true, default: []
       t.jsonb :metadata
 
       t.timestamps
